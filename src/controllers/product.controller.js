@@ -7,7 +7,6 @@ const getProducts = async (_req, res) => {
 };
 
 const getProductById = async (req, res) => {
-  console.log('passei por aqui');
   const { id } = req.params;
   const { type, message } = await productService.findById(id);
   console.log(type);
