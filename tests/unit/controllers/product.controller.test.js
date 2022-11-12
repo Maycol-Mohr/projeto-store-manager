@@ -72,4 +72,27 @@ describe("Verificando controller Product", function () {
       expect(res.status).to.have.been.calledWith(404);
       expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
     });
+
+  describe("Cadastrando um novo produto com sucesso", function () {
+    it("é chamado o status 201 e o json correto", async function () {
+      sinon
+        .stub(productService, "createProduct")
+        .resolves({ type: null, message: productList });
+
+      const res = {};
+      const req = {
+        body: {
+          name: "Bola de futebol",
+        },
+      };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await productController.createProduct(req, res);
+
+      expect(res.status).to.have.been.calledOnceWith(201);
+      expect(res.json).to.have.been.calledWith(productList);
+    });
+  });
 });

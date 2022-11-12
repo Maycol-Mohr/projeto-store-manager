@@ -19,4 +19,18 @@ describe("Testes de unidade do model de produtos", function () {
     const result = await productModel.findById(1);
     expect(result).to.be.deep.equal(products[0]);
   });
+
+  describe("Cadastra um novo produto", function () {
+    const expected = 9;
+
+    const payload = {
+      name: "Bola de futebol",
+    };
+
+    it("com sucesso", async function () {
+      const response = await productModel.insert(payload);
+
+      expect(response).to.equal(expected);
+    });
+  });
 });

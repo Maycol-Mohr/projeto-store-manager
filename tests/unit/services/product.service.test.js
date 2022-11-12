@@ -37,7 +37,22 @@ describe("Verificando product service", function () {
       sinon.stub(productModel, "findById").resolves(productList[4]);
       const response = await productService.findById(5);
       expect(res.status).to.have.been.calledWith(404);
-      expect(res.json).to.have.been.calledWith({message: "Product not found"});
+      expect(res.json).to.have.been.calledWith({ message: "Product not found" });
+      expect(response.message).to.deep.equal({ message: "Product not found" });
     });
   });
+
+  describe('Cadastrando um novo produto com sucesso', function () {
+     it('não retorna erros', async function () {
+         const response = await productService.createProduct(body);
+
+         expect(response.type).to.equal(null);
+     });
+
+     it('retorna o produto cadastrado', async function () {
+         const response = await productService.createProduct(body);
+
+         expect(response.message).to.equal(productList);
+     });
+   });
 });
