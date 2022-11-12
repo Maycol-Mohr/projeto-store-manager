@@ -92,7 +92,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-11-11T20:03:10.490Z",
-    "modified": "2022-11-11T22:13:57.165Z",
+    "modified": "2022-11-12T07:24:48.677Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -120,7 +120,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-11-11T21:21:41.311Z",
-    "modified": "2022-11-11T22:08:09.673Z",
+    "modified": "2022-11-12T07:08:11.542Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -134,7 +134,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-11-11T21:25:04.528Z",
-    "modified": "2022-11-11T22:03:52.108Z",
+    "modified": "2022-11-12T07:08:13.009Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -148,7 +148,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-11-11T21:25:05.386Z",
-    "modified": "2022-11-11T22:08:11.222Z",
+    "modified": "2022-11-12T07:08:13.666Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -176,7 +176,7 @@
     "method": "GET",
     "sortNum": 0,
     "created": "2022-11-11T21:43:24.935Z",
-    "modified": "2022-11-11T22:08:11.995Z",
+    "modified": "2022-11-12T07:08:14.584Z",
     "headers": [],
     "params": [],
     "tests": []
@@ -221,6 +221,44 @@
     "modified": "2022-11-11T22:13:54.663Z",
     "headers": [],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "e9f5d449-e993-437e-9fb5-afc7b2143862",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products/36",
+    "url": "http://localhost:3000/products/36",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2022-11-12T00:15:27.604Z",
+    "modified": "2022-11-12T00:15:27.666Z",
+    "headers": [],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "7d8a273f-4794-4e25-8a20-b702e0594163",
+    "colId": "history",
+    "containerId": "",
+    "name": "http://localhost:3000/products",
+    "url": "http://localhost:3000/products",
+    "method": "POST",
+    "sortNum": 0,
+    "created": "2022-11-12T07:25:20.698Z",
+    "modified": "2022-11-12T20:04:41.253Z",
+    "headers": [
+      {
+        "name": "Content-Type",
+        "value": "application/json"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": " {\n    \"name\": \"rodrigo\",\n    \"lastName\": \"fe\"\n  }",
+      "form": []
+    },
     "tests": []
   }
 ]

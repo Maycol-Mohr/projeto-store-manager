@@ -28,5 +28,16 @@ describe("Verificando product service", function () {
 
       expect(produto.message).to.deep.equal(productList);
     });
+    it("Buscando um produto pelo seu id", async function () {
+      sinon.stub(productModel, "findById").resolves(productList[0]);
+      const response = await productService.findById(1);
+      expect(response.message).to.deep.equal(productList[0]);
+    });
+    it("Retorna um erro quando  passa um id que nao existe", async function () {
+      sinon.stub(productModel, "findById").resolves(productList[4]);
+      const response = await productService.findById(5);
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({message: "Product not found"});
+    });
   });
 });

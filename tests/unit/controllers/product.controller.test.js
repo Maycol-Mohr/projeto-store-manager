@@ -44,4 +44,32 @@ describe("Verificando controller Product", function () {
       expect(res.json).to.have.been.calledWith(productList);
     });
   });
+    it("Buscando um produto pelo seu id", async function () {
+      const res = {};
+      const req = { params: { id: 1 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(productService, "findById").resolves(productList);
+
+      await productController.getProductById(req, res);
+
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(productList.message);
+    });
+    it('Retorna um erro quando  passa um id que nao existe', async function () {
+      const res = {};
+      const req = { params: { id: 5 } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      sinon.stub(productService, 'findById').resolves(5);
+
+      await productController.getProductById(req, res);
+
+      expect(res.status).to.have.been.calledWith(404);
+      expect(res.json).to.have.been.calledWith({ message: 'Product not found' });
+    });
 });
