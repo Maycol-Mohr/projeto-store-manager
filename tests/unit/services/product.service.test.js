@@ -1,16 +1,16 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
 
-const {productModel} = require("../../../src/models");
+const { productModel } = require("../../../src/models");
 
 const { productService } = require("../../../src/services");
 
-const { productList } = require("./mocks/product.service.mock");
+const productMock = require("./mocks/product.service.mock");
 
 describe("Verificando product service", function () {
   describe("Listando os produtos", function () {
     beforeEach(function () {
-      sinon.stub(productModel, "findAll").resolves(productList);
+      sinon.stub(productModel, "findAll").resolves(productMock.productList);
     });
 
     afterEach(function () {
@@ -26,33 +26,45 @@ describe("Verificando product service", function () {
     it("retorna a lista de produtos com sucesso", async function () {
       const produto = await productService.getProducts();
 
-      expect(produto.message).to.deep.equal(productList);
+      expect(produto.message).to.deep.equal(productMock.productList);
     });
     it("Buscando um produto pelo seu id", async function () {
-      sinon.stub(productModel, "findById").resolves(productList[0]);
+      sinon.stub(productModel, "findById").resolves(productMock.product);
       const response = await productService.findById(1);
-      expect(response.message).to.deep.equal(productList[0]);
+      expect(response.message).to.deep.equal(productMock.product);
     });
     it("Retorna um erro quando  passa um id que nao existe", async function () {
-      sinon.stub(productModel, "findById").resolves(productList[4]);
+      sinon.stub(productModel, "findById").resolves(null);
       const response = await productService.findById(5);
-      expect(res.status).to.have.been.calledWith(404);
-      expect(res.json).to.have.been.calledWith({ message: "Product not found" });
-      expect(response.message).to.deep.equal({ message: "Product not found" });
+      expect(response.message).to.deep.equal("Product not found");
+      expect(response.type).to.deep.equal("PRODUCT_NOT_FOUND");
     });
+
   });
 
-  describe('Cadastrando um novo produto com sucesso', function () {
-     it('não retorna erros', async function () {
-         const response = await productService.createProduct(body);
-
-         expect(response.type).to.equal(null);
+  describe("Cadastrando um novo produto com sucesso", function () {
+     beforeEach(function () {
+      sinon.stub(productModel, "insert").resolves(1);
+      sinon.stub(productModel, "findById").resolves(productMock.product);
      });
+    afterEach(function () {
+      sinon.restore();
+    });
+    it("não retorna erros", async function () {
+      const response = await productService.createProduct(productMock.productNew);
+      expect(response.type).to.equal(null);
+    });
 
-     it('retorna o produto cadastrado', async function () {
-         const response = await productService.createProduct(body);
+    it("retorna o produto cadastrado", async function () {
+      const response = await productService.createProduct(productMock.productNew);
 
-         expect(response.message).to.equal(productList);
-     });
-   });
+      expect(response.message).to.equal(productMock.product);
+    });
+    it("retorna o produto cadastrado com erro", async function () {
+      const response = await productService.createProduct(
+        productMock.producError,
+      );
+      expect(response.type).to.equal("string.min");
+    });
+  });
 });

@@ -13,6 +13,18 @@ const productList = [
   },
 ];
 
+const product = {
+  id: 1,
+  name: "Bola de futebol",
+};
+
+const productNotFound = {
+  type: "PRODUCT_NOT_FOUND",
+  message: "Product not found",
+};
+
 module.exports = {
   productList,
+  product,
+  productNotFound,
 };
