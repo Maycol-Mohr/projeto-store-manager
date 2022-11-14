@@ -1,11 +1,4 @@
-// const { idSchema, productNameValidateSchema } = require('./schema');
 const { productNameValidateSchema } = require('./schema');
-
-// const validateId = (id) => {
-//   const { error } = idSchema.validate(id);
-//   if (error) return { type: 'INPUT_VALUE', message: '"id" must be a number' }; teste
-//   return { type: null, message: '' };
-// };
 
 const validateProduct = (body) => {
   const { error } = productNameValidateSchema.validate(body);
@@ -18,8 +11,3 @@ const validateProduct = (body) => {
 module.exports = {
   validateProduct,
 };
-
-// module.exports = {
-//   validateId,
-//   validateProduct,
-// };

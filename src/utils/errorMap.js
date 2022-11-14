@@ -1,8 +1,12 @@
-const errorMap = {
-  PRODUCT_NOT_FOUND: 404,
-  'any.required': 400,
+ const errorMap = {
+  NOT_FOUND: 404,
+  INVALID_VALUE: 403,
   'string.min': 422,
-  PRODUCT_CONFLICT: 409,
+  'string.required': 400,
+  'number.min': 422,
+  'number.required': 422,
+  'any.required': 400,
+  PRODUCT_NOT_FOUND: 404,
 };
 
 const mapError = (type) => errorMap[type] || 500;
