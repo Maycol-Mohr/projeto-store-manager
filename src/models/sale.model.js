@@ -1,5 +1,31 @@
-// const camelize = require("camelize");
+// const camelize = require('camelize');
 const connection = require('./connection');
+
+const findAll = async () => {
+  const [result] = await connection.execute(
+    `SELECT SP.sale_id AS saleId, SS.date, SP.product_id AS productId, SP.quantity
+    FROM StoreManager.sales_products AS SP
+    INNER JOIN StoreManager.sales AS SS
+    ON SP.sale_id = SS.id
+    ORDER BY SP.sale_id, SP.product_id`,
+  );
+
+  return result;
+};
+
+const findById = async (saleId) => {
+  const [sale] = await connection.execute(
+    `SELECT SS.date, SP.product_id AS productId, SP.quantity
+    FROM StoreManager.sales_products AS SP
+    INNER JOIN StoreManager.sales AS SS
+    ON SP.sale_id = SS.id
+    WHERE sale_id = ?
+    ORDER BY SP.sale_id, SP.product_id`,
+    [saleId],
+  );
+  return sale;
+  // return camelize(sale);
+};
 
 const insertSales = async () => {
   const [{ insertId }] = await connection.execute(
@@ -20,4 +46,6 @@ const insertSalesProducts = async (salesProduct) => {
 module.exports = {
   insertSales,
   insertSalesProducts,
+  findAll,
+  findById,
 };

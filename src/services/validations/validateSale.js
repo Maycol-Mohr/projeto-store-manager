@@ -12,7 +12,6 @@ const validateNewSale = async (sales) => {
   const saleId = await Promise.all(
     sales.map(async ({ productId }) => productModel.findById(productId)),
   );
-
   const someSaleIsMising = saleId.some((sale) => sale === undefined);
   if (someSaleIsMising) {
     return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
