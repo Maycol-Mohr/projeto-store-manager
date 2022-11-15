@@ -247,11 +247,11 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products",
-    "url": "http://localhost:3000/products/y",
-    "method": "GET",
+    "url": "http://localhost:3000/products/1333",
+    "method": "PUT",
     "sortNum": 0,
     "created": "2022-11-12T07:25:20.698Z",
-    "modified": "2022-11-14T13:00:21.153Z",
+    "modified": "2022-11-15T20:17:17.797Z",
     "headers": [
       {
         "name": "Content-Type",
@@ -261,7 +261,7 @@
     "params": [],
     "body": {
       "type": "json",
-      "raw": " {\n    \"name\": \"123456\"\n  }",
+      "raw": " {\n    \"name\": \"te1\"\n  }",
       "form": []
     },
     "tests": []
