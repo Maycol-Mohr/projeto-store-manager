@@ -27,8 +27,16 @@ const createSale = async (sale) => {
   return { type: null, message: { id: saleId, itemsSold: sale } };
 };
 
+const removeSale = async (id) => {
+  const result = await validateSales.validateId(id);
+  if (result.type) return result;
+  const response = await salesModel.remove(id);
+  return { type: null, message: response };
+};
+
 module.exports = {
   createSale,
   getSales,
   findById,
+  removeSale,
 };

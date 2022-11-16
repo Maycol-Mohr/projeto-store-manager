@@ -1,6 +1,5 @@
 const saleModel = require('../../models/sale.model');
 const productModel = require('../../models/product.model');
-// const { idSchema } = require('./schema');
 
 const validateNewSale = async (sales) => {
   if (sales.some(({ quantity }) => Number(quantity) <= 0)) {
@@ -21,21 +20,14 @@ const validateNewSale = async (sales) => {
 };
 
 const validateId = async (id) => {
-  const saleId = await saleModel.findById(id);
-  if (!saleId) {
- return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
-}
-  return { type: null, message: saleId };
+  const sales = await saleModel.findAll();
+  const sale = sales.find((sal) => sal.saleId === Number(id));
+  console.log('teste', sales);
+  if (!sale) {
+    return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
+  }
+  return { type: null, message: sale };
 };
-
-// const validateId = (id) => {
-//   const { error } = idSchema.validate(id);
-//   if (error) {
-//     const { details } = error;
-//     return { type: details[0].type, message: error.message };
-//   }
-//   return { type: null, message: '' };
-// };
 
 module.exports = {
   validateNewSale,

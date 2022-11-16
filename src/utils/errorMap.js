@@ -8,6 +8,7 @@
    'any.required': 400,
    PRODUCT_NOT_FOUND: 404,
    SALE_NOT_FOUND: 404,
+   'Sale not found': 404,
  };
 
 const mapError = (type) => errorMap[type] || 500;
