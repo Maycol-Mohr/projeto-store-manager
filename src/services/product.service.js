@@ -1,5 +1,5 @@
 const { productModel } = require('../models');
-const { validateProduct } = require('./validations/validationsInputValue');
+const { validateProduct, verifyId } = require('./validations/validationsInputValue');
 
 const getProducts = async () => {
   const products = await productModel.findAll();
@@ -21,12 +21,12 @@ const createProduct = async (body) => {
     return { type: null, message: newProductId };
 };
 
-const verifyId = async (id) => {
-  const products = await productModel.findAll();
-  const product = products.find((prod) => prod.id === Number(id));
-  if (!product) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
-  return { type: null };
-};
+// const verifyId = async (id) => {
+//   const products = await productModel.findAll();
+//   const product = products.find((prod) => prod.id === Number(id));
+//   if (!product) return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' };
+//   return { type: null, message: '' };
+// };
 
 const updateProduct = async (id, name) => {
   const result = await verifyId(id);
@@ -35,9 +35,17 @@ const updateProduct = async (id, name) => {
   if (updateProductNow) return { type: null, message: updateProductNow };
 };
 
+const removeProduct = async (id) => {
+   const result = await verifyId(id);
+  if (result.type) return result;
+  const response = await productModel.remove(id);
+  return { type: null, message: response };
+};
+
 module.exports = {
   getProducts,
   findById,
   createProduct,
   updateProduct,
+  removeProduct,
 };

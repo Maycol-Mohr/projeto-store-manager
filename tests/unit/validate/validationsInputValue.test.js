@@ -1,6 +1,6 @@
 const { expect } = require("chai");
 
-const { validateProduct, validateId } = require("../../../src/services/validations/validationsInputValue");
+const { validateProduct, validateId, verifyId } = require("../../../src/services/validations/validationsInputValue");
 
 describe("Verificando o validateProductInputValue", function () {
     it("verifica o validate com erro", async function () {
@@ -19,5 +19,25 @@ describe("Verificando o validateProductInputValue", function () {
       expect(response.type).to.equal("number.base");
       expect(response.message).to.equal('"value" must be a number');
     });
+    it("verifica o verify com erro apos colocar um id incorreto", async function () {
+      const response = await verifyId({
+        id: 999,
+      });
+      expect(response.type).to.equal("PRODUCT_NOT_FOUND");
+      expect(response.message).to.equal("Product not found");
+    });
+  //   it("verifica o verify com sucesso apos colocar um id correto", async function () {
+  //     const response = await verifyId({
+  //       id: 1,
+  //     });
+  //     expect(response.type).to.equal(null);
+  //     expect(response.message).to.equal("");
+  //   });
+  //   it("verifica o validate com sucesso apos colocar um id correto", async function () {
+  //     const response = await validateId({
+  //       id: 1,
+  //     });
+  //     expect(response.type).to.equal(null);
+  //     expect(response.message).to.equal("");
+  // });
 });
-

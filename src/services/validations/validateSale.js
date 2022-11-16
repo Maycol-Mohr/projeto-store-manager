@@ -1,5 +1,6 @@
 const saleModel = require('../../models/sale.model');
 const productModel = require('../../models/product.model');
+// const { idSchema } = require('./schema');
 
 const validateNewSale = async (sales) => {
   if (sales.some(({ quantity }) => Number(quantity) <= 0)) {
@@ -26,6 +27,15 @@ const validateId = async (id) => {
 }
   return { type: null, message: saleId };
 };
+
+// const validateId = (id) => {
+//   const { error } = idSchema.validate(id);
+//   if (error) {
+//     const { details } = error;
+//     return { type: details[0].type, message: error.message };
+//   }
+//   return { type: null, message: '' };
+// };
 
 module.exports = {
   validateNewSale,

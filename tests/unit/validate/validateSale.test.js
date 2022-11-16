@@ -23,4 +23,11 @@ describe("Verificando o validateSale", function () {
     }]);
     expect(response.message).to.be.deep.equal([]);
   });
+  // it("verifica o validateSale com erro apos colocar um id incorreto", async function () {
+  //     const response = await validateSale.validateId({
+  //       id: 222,
+  //     });
+  //     expect(response.type).to.be.deep.equal("SALE_NOT_FOUND");
+  //     expect(response.message).to.be.deep.equal("Sale not found");
+  //   });
 });
