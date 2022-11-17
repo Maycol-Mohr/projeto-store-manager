@@ -44,7 +44,6 @@ describe("Verificando product service", function () {
 
   describe("Cadastrando um novo produto com sucesso", function () {
      beforeEach(function () {
-      sinon.stub(productModel, "insert").resolves(1);
       sinon.stub(productModel, "findById").resolves(productMock.product);
      });
     afterEach(function () {
@@ -65,6 +64,41 @@ describe("Verificando product service", function () {
         productMock.producError,
       );
       expect(response.type).to.equal("string.min");
+    });
+  });
+
+  describe("Atualizando um produto com sucesso", function () {
+    beforeEach(function () {
+      sinon.stub(productModel, "findById").resolves(productMock.product);
+    });
+    afterEach(function () {
+      sinon.restore();
+    });
+    it("atualiza um produto", async function () {
+      const response = await productService.updateProduct(
+        productMock.updateProduct.id,
+        productMock.updateProduct.name,
+      );
+      expect(response).to.deep.equal({
+        type: null,
+        message: productMock.updateProduct,
+      });
+    });
+  });
+
+  describe("Deletando um produto com sucesso", function () {
+    beforeEach(function () {
+      sinon.stub(productModel, "findById").resolves(productMock.product);
+    });
+    afterEach(function () {
+      sinon.restore();
+    });
+    it("deleta um produto", async function () {
+      const response = await productService.removeProduct(
+        productMock.product.id,
+      );
+      // expect(response.type).to.deep.equal(null);
+      expect(response).to.deep.equal({type: null, message: 1});
     });
   });
 });

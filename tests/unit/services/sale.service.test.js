@@ -20,7 +20,6 @@ describe("Verificando sales service", function () {
       const response = await saleService.createSale(
         saleServiceMock.validParams
       );
-      console.log(response);
       expect(response.type).to.equal(null);
     });
 
@@ -38,4 +37,45 @@ describe("Verificando sales service", function () {
       expect(response.type).to.equal("PRODUCT_NOT_FOUND");
     });
   });
+
+  describe("Listando as vendas", function () {
+    beforeEach(function () {
+      sinon.stub(salesModel, "findAll").resolves(saleServiceMock.listSales);
+    });
+
+    afterEach(function () {
+      sinon.restore();
+    });
+
+    it("a lista de vendas é um array", async function () {
+      const sale = await saleService.getSales();
+
+      expect(sale.message instanceof Array).to.equal(true);
+    });
+
+    it("retorna a lista de sales com sucesso", async function () {
+      const sales = await saleService.getSales();
+
+      expect(sales.message).to.deep.equal(saleServiceMock.listSales);
+    });
+    it("Buscando uma venda pelo seu id", async function () {
+      sinon.stub(salesModel, "findById").resolves(saleServiceMock.saleParams);
+      const response = await saleService.findById(1);
+      expect(response.message).to.deep.equal(saleServiceMock.saleParams);
+    });
+    it("Retorna um erro quando passa um id que nao existe", async function () {
+      sinon.stub(salesModel, "findById").resolves(undefined);
+      const response = await saleService.findById(888);
+      expect(response.message).to.deep.equal("Sale not found");
+      expect(response.type).to.deep.equal("SALE_NOT_FOUND");
+    });
+    it("Deleta uma venda", async function () {
+      sinon.stub(salesModel, "remove").resolves(1);
+      const response = await saleService.removeSale(3);
+      expect(response.message).to.deep.equal(1);
+      expect(response.type).to.deep.equal(null);
+      });
+  });
+
+
 });

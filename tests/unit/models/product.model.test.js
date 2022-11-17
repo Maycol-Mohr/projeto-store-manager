@@ -33,4 +33,39 @@ describe("Testes de unidade do model de produtos", function () {
       expect(response).to.equal(1);
     });
   });
+   describe("Atualiza um novo produto", function () {
+     const payload = {
+       id: 1,
+       name: "Bola de futebol atualizada",
+     };
+
+     it("com sucesso", async function () {
+       sinon.stub(connection, "execute").resolves([
+         {
+           id: 1,
+           name: "Bola de futebol atualizada",
+         },
+       ]);
+       const response = await productModel.updateProduct(payload.id, payload.name);
+       expect(response).to.deep.equal({
+         id: 1,
+         name: "Bola de futebol atualizada",
+       });
+     });
+   });
+   describe("Deleta um novo produto", function () {
+     const payload = {
+       name: "Bola de futebol atualizada",
+     };
+
+     it("com sucesso", async function () {
+       sinon.stub(connection, "execute").resolves([
+         {
+           affectedRows: 1,
+         },
+       ]);
+       const response = await productModel.remove(payload);
+       expect(response).to.equal(1);
+     });
+   });
 });

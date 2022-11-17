@@ -10,7 +10,7 @@ const findById = async (saleId) => {
   // const error = validateSales.validateId(saleId);
   // if (error.type) return error;
   const sale = await salesModel.findById(saleId);
-  if (sale.length !== 0) return { type: null, message: sale };
+  if (sale && sale.length !== 0) return { type: null, message: sale };
     return { type: 'SALE_NOT_FOUND', message: 'Sale not found' };
 };
 
@@ -27,6 +27,17 @@ const createSale = async (sale) => {
   return { type: null, message: { id: saleId, itemsSold: sale } };
 };
 
+const updateSale = async (id, sales) => {
+  const result = await validateSales.validateId(id);
+  if (result.type) return result;
+  const returnSales = await validateSales.validateSales(sales);
+  if (returnSales.type) return returnSales;
+  const salesProducts = await salesModel.findById(id);
+   await Promise.all(sales.map(async (sale, index) =>
+     salesModel.updateSale(sale, id, salesProducts[index])));
+  return { type: null, message: { saleId: id, itemsUpdated: sales } };
+};
+
 const removeSale = async (id) => {
   const result = await validateSales.validateId(id);
   if (result.type) return result;
@@ -39,4 +50,5 @@ module.exports = {
   getSales,
   findById,
   removeSale,
+  updateSale,
 };

@@ -18,6 +18,11 @@ const product = {
   name: "Bola de futebol",
 };
 
+const updateProduct = {
+  id: 2,
+  name: "Bola de futebol atualizada",
+};
+
 const productNew = {
   name: "Bola de futebol",
 };
@@ -37,4 +42,5 @@ module.exports = {
   productNotFound,
   productNew,
   producError,
+  updateProduct,
 };

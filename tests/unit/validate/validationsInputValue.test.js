@@ -23,7 +23,7 @@ describe("Verificando o validateProductInputValue", function () {
       expect(response.message).to.equal("Product not found");
     });
     it("verifica o verify com sucesso apos colocar um id correto", async function () {
-      const response = await verifyId(1)
+      const response = await verifyId(2)
       expect(response.type).to.equal(null);
       expect(response.message).to.equal("");
     });
