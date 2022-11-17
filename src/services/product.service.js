@@ -42,10 +42,21 @@ const removeProduct = async (id) => {
   return { type: null, message: response };
 };
 
+// const getBySearch = async (name) => {
+//   const result = name ? await productModel.findBySearch(name) : await productModel.findAll();
+//   return { message: result };
+// };
+
+const getBySearch = async (name) => {
+  const search = await productModel.findBySearch(name);
+  return { type: null, message: search };
+};
+
 module.exports = {
   getProducts,
   findById,
   createProduct,
   updateProduct,
   removeProduct,
+  getBySearch,
 };
