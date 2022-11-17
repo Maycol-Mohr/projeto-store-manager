@@ -12,7 +12,6 @@ const validateProduct = (body) => {
 const verifyId = async (id) => {
   const products = await productModel.findAll();
   const product = products.find((prod) => prod.id === Number(id));
-  console.log('TESTE', products);
   if (!product) { return { type: 'PRODUCT_NOT_FOUND', message: 'Product not found' }; }
   return { type: null, message: '' };
 };

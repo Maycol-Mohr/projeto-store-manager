@@ -88,7 +88,8 @@ describe("Verificando product service", function () {
 
   describe("Deletando um produto com sucesso", function () {
     beforeEach(function () {
-      sinon.stub(productModel, "findById").resolves(productMock.product);
+      sinon.stub(productModel, "findAll").resolves(productMock.productList);
+      sinon.stub(productModel, "remove").resolves(1);
     });
     afterEach(function () {
       sinon.restore();

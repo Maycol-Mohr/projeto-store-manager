@@ -19,6 +19,15 @@ const validParams = [
   // },
 ];
 
+  const execute = [
+    {
+      saleId: 2,
+      date: "2022-11-15 16:27:16",
+      productId: 2,
+      quantity: 2,
+    },
+  ];
+
 const listSales = [
   {
     productId: 2,
@@ -64,4 +73,5 @@ module.exports = {
   endValidParams,
   listSales,
   saleParams,
+  execute,
 };

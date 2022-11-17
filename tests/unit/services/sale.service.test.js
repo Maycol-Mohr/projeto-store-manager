@@ -40,7 +40,7 @@ describe("Verificando sales service", function () {
 
   describe("Listando as vendas", function () {
     beforeEach(function () {
-      sinon.stub(salesModel, "findAll").resolves(saleServiceMock.listSales);
+      sinon.stub(salesModel, "findAll").resolves(saleServiceMock.execute);
     });
 
     afterEach(function () {
@@ -56,7 +56,7 @@ describe("Verificando sales service", function () {
     it("retorna a lista de sales com sucesso", async function () {
       const sales = await saleService.getSales();
 
-      expect(sales.message).to.deep.equal(saleServiceMock.listSales);
+      expect(sales.message).to.deep.equal(saleServiceMock.execute);
     });
     it("Buscando uma venda pelo seu id", async function () {
       sinon.stub(salesModel, "findById").resolves(saleServiceMock.saleParams);
@@ -71,7 +71,7 @@ describe("Verificando sales service", function () {
     });
     it("Deleta uma venda", async function () {
       sinon.stub(salesModel, "remove").resolves(1);
-      const response = await saleService.removeSale(3);
+      const response = await saleService.removeSale(2);
       expect(response.message).to.deep.equal(1);
       expect(response.type).to.deep.equal(null);
       });
