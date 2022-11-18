@@ -24,8 +24,69 @@ describe("Verificando o validateSale", function () {
     expect(response.message).to.be.deep.equal("Sale not found");
   });
   it("verifica o validateSale com erro apos colocar um id incorreto", async function () {
-      const response = await validateSale.validateId(2);
-      expect(response.type).to.be.deep.equal(null);
-      expect(response.message).to.be.deep.equal(response.message);
+      const response = await validateSale.validateId([
+        {
+          saleId: 9999,
+          productId: 221,
+          quantity: 10,
+        },
+      ]);
+      expect(response.type).to.be.deep.equal("SALE_NOT_FOUND");
+      expect(response.message).to.be.deep.equal("Sale not found");
+  });
+   it("verifica o validateSaleId com erro em saleId nao encontrado", async function () {
+     const response = await validateSale.validateSaleId([
+       {
+         saleId: 9999,
+         productId: 221,
+         quantity: 10,
+       },
+     ]);
+     expect(response.message).to.be.deep.equal("Product not found");
+   });
+   it("verifica o validateSales com erro apos colocar um id incorreto", async function () {
+     const response = await validateSale.validateSaleId([
+       {
+         saleId: 9999,
+         productId: 221,
+         quantity: 10,
+       },
+     ]);
+     expect(response.type).to.be.deep.equal("PRODUCT_NOT_FOUND");
+     expect(response.message).to.be.deep.equal("Product not found");
+   });
+    it("verifica o validateSaleId com erro em saleId nao encontrado", async function () {
+      const response = await validateSale.validateSales([
+        {
+          saleId: 9999,
+          productId: 221,
+          quantity: 10,
+        },
+      ]);
+      expect(response.message).to.be.deep.equal("Product not found");
+    });
+    it("verifica o validateSales com erro apos colocar um productId incorreto", async function () {
+      const response = await validateSale.validateSales([
+        {
+          saleId: 9999,
+          productId: 221,
+          quantity: 10,
+        },
+      ]);
+      expect(response.type).to.be.deep.equal("PRODUCT_NOT_FOUND");
+      expect(response.message).to.be.deep.equal("Product not found");
+    });
+    it("verifica o validateSales com quantidade incorreta", async function () {
+      const response = await validateSale.validateSales([
+        {
+          saleId: 1,
+          productId: 1,
+          quantity: -10,
+        },
+      ]);
+      expect(response.type).to.be.deep.equal("FIELD_INVALID");
+      expect(response.message).to.be.deep.equal(
+        '"quantity" must be greater than or equal to 1'
+      );
     });
 });

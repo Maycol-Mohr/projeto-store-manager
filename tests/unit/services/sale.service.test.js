@@ -69,6 +69,25 @@ describe("Verificando sales service", function () {
       expect(response.message).to.deep.equal("Sale not found");
       expect(response.type).to.deep.equal("SALE_NOT_FOUND");
     });
+      // describe("Atualizando uma venda com sucesso pelo id", function () {
+      //   beforeEach(function () {
+      //     sinon.stub(salesModel, "updateSale").resolves(1);
+      //   });
+      //   afterEach(function () {
+      //     sinon.restore();
+      //   });
+      //   it("atualiza um produto", async function () {
+      //     const response = await productService.updateProduct(
+      //       productMock.updateProduct.id,
+      //       productMock.updateProduct.name
+      //     );
+      //     expect(response).to.deep.equal({
+      //       type: null,
+      //       message: productMock.updateProduct,
+      //     });
+      //   });
+      // });
+
     it("Deleta uma venda", async function () {
       sinon.stub(salesModel, "remove").resolves(1);
       const response = await saleService.removeSale(2);
@@ -76,6 +95,4 @@ describe("Verificando sales service", function () {
       expect(response.type).to.deep.equal(null);
       });
   });
-
-
 });

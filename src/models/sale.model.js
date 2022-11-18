@@ -27,6 +27,28 @@ const findById = async (saleId) => {
   // return camelize(sale);
 };
 
+// const findAll = async () => {
+//   const [sales] = await connection.execute(
+//     `SELECT sale_id, sale.date, salesProducts.product_id, salesProducts.quantity
+//     FROM StoreManager.sales AS sale
+//     INNER JOIN sales_products AS salesProducts
+//     ON sale.id = salesProducts.sale_id`,
+//   );
+//   return camelize(sales);
+// };
+
+// const findById = async (salesId) => {
+//   const [sale] = await connection.execute(
+//     `SELECT sale.date, salesProducts.product_id, salesProducts.quantity
+//     FROM StoreManager.sales AS sale
+//     INNER JOIN sales_products AS salesProducts
+//     ON sale.id = salesProducts.sale_id
+//     WHERE sale.id = ?`,
+//     [salesId],
+//   );
+//   return camelize(sale);
+// };
+
 const insertSales = async () => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales (date) VALUES (default)',
@@ -44,11 +66,18 @@ const insertSalesProducts = async (salesProduct) => {
 };
 
 const updateSale = async (saleUpdate, saleId, saleActual) => {
-  await connection.execute(
+  const [{ affectedRows }] = await connection.execute(
     `UPDATE StoreManager.sales_products SET product_id = ?, quantity = ?
       WHERE sale_id = ? AND product_id = ? AND quantity = ?`,
-    [saleUpdate.productId, saleUpdate.quantity, saleId, saleActual.productId, saleActual.quantity],
+    [
+      saleUpdate.productId,
+      saleUpdate.quantity,
+      saleId,
+      saleActual.productId,
+      saleActual.quantity,
+    ],
   );
+  return affectedRows;
 };
 
 const remove = async (id) => {

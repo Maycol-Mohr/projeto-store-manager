@@ -14,6 +14,12 @@ describe("Testes de unidade do model de produtos", function () {
     expect(result).to.be.deep.equal(productMock.products);
   });
 
+   it("Recuperando um produto pela letra de seu nome", async function () {
+     sinon.stub(connection, "execute").resolves([productMock.productRecover]);
+     const result = await productModel.findBySearch();
+     expect(result).to.be.deep.equal(productMock.productRecover);
+   });
+
   it("Recuperando um produto a partir do seu id", async function () {
     sinon.stub(connection, "execute").resolves([[productMock.product]]);
     const result = await productModel.findById(1);

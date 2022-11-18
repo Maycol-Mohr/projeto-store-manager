@@ -67,6 +67,23 @@ describe("Testes de unidade do model de vendas", function () {
        expect(response).to.deep.equal(expected);
      });
    });
+
+  describe("Atualiza uma nova venda", function () {
+    it("com sucesso", async function () {
+      sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
+      const response = await salesModel.updateSale({
+        productId: 1,
+        quantity: 10,
+      },
+        1, {
+        productId: 1,
+        quantity: 5,
+        }
+      );
+      expect(response).to.be.deep.equal(1);
+    });
+  });
+
   describe("Deleta uma nova venda", function () {
     const payload = {
       saleId: 1,

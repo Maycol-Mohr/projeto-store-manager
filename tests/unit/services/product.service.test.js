@@ -28,6 +28,12 @@ describe("Verificando product service", function () {
 
       expect(produto.message).to.deep.equal(productMock.productList);
     });
+    it("retorna a lista de productSearch pelo nome com sucesso", async function () {
+        sinon.stub(productModel, "findBySearch").resolves(productMock.product);
+        const produto = await productService.getBySearch('futebol');
+
+        expect(produto.message).to.deep.equal(productMock.product);
+      });
     it("Buscando um produto pelo seu id", async function () {
       sinon.stub(productModel, "findById").resolves(productMock.product);
       const response = await productService.findById(1);

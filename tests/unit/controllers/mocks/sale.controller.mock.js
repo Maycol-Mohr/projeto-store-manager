@@ -1,6 +1,15 @@
 const invalidReq = {
   body: [
     {
+      productId: 111,
+      quantity: 0,
+    },
+  ],
+};
+
+const validId = {
+  body: [
+    {
       productId: 1,
       quantity: 0,
     },
@@ -23,4 +32,5 @@ const validReq = {
 module.exports = {
   invalidReq,
   validReq,
+  validId,
 };

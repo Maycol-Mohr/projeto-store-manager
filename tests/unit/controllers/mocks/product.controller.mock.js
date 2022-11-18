@@ -23,6 +23,11 @@ const updateProduct = {
   name: "Bola de futebol atualizada",
 };
 
+const updateProductNow = {
+  id: 1,
+  name: "Bola de futebol atualizada",
+};
+
 const productNotFound = {
   type: "PRODUCT_NOT_FOUND",
   message: "Product not found",
@@ -33,4 +38,5 @@ module.exports = {
   product,
   productNotFound,
   updateProduct,
+  updateProductNow,
 };

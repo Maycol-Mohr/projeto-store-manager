@@ -45,6 +45,18 @@ describe("Verificando controller Product", function () {
       expect(res.json).to.have.been.calledWith(productList.productList);
     });
   });
+      it("é chamado o json com a lista de productsBySearch por um nome", async function () {
+      const res = {};
+        const req = { query: { q: 'atualizada' } };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
+
+      await productController.getProductBySearch(req, res);
+
+        expect(res.status).to.have.been.calledWith(200);
+    });
+
   it("Buscando um produto pelo seu id", async function () {
     const res = {};
     const req = { params: { id: 1 } };

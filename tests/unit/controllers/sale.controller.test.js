@@ -102,6 +102,79 @@ describe("Verificando controller Sales", function () {
       expect(res.json).to.have.been.calledWith(saleMock.validReq);
     });
 
+     it("Buscando um venda pelo seu id", async function () {
+       const res = {};
+       const req = { params: { id: 1 } };
+
+       res.status = sinon.stub().returns(res);
+       res.json = sinon.stub().returns();
+
+       sinon.stub(saleService, "findById").resolves(saleMock.validId);
+
+       await saleController.getSaleById(req, res);
+
+       expect(res.status).to.have.been.calledWith(200);
+       expect(res.json).to.have.been.calledWith(
+         saleMock.validId.message
+       );
+     });
+
+        it("Buscando um venda pelo seu id com erro por id incorreto", async function () {
+          const res = {};
+          const req = { params: { id: 111 } };
+
+          res.status = sinon.stub().returns(res);
+          res.json = sinon.stub().returns();
+
+          sinon
+            .stub(saleService, "findById")
+            .resolves({ type: "SALE_NOT_FOUND", message: "Sale not found" });
+
+          await saleController.getSaleById(req, res);
+
+          expect(res.status).to.have.been.calledWith(404);
+        });
+
+      it("atualizando uma venda pelo id", async function () {
+        sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
+        sinon
+          .stub(saleService, "updateSale")
+          .resolves(saleMock.validId);
+
+        const res = {};
+        const req = {
+          params: { productId: saleMock.validId.productId },
+          body: { quantity: saleMock.validId.quantity },
+        };
+
+        res.status = sinon.stub().returns(res);
+        res.json = sinon.stub().returns();
+
+        await saleController.updateSale(req, res);
+
+        expect(res.status).to.have.been.calledOnceWith(200);
+      });
+
+        it("nao atualizando uma venda com id incorreto", async function () {
+          sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
+          sinon.stub(saleService, "updateSale").resolves(
+            { type: 'SALE_NOT_FOUND', message: 'Sale not found' });
+
+
+          const res = {};
+          const req = {
+            params: { productId: saleMock.invalidReq.productId },
+            body: { quantity: saleMock.invalidReq.quantity },
+          };
+
+          res.status = sinon.stub().returns(res);
+          res.json = sinon.stub().returns();
+
+          await saleController.updateSale(req, res);
+
+          expect(res.status).to.have.been.calledOnceWith(404);
+        });
+
     it("deletando uma venda pelo id", async function () {
       sinon.stub(connection, "execute").resolves([{ affectedRows: 1 }]);
       sinon.stub(saleService, "removeSale").resolves({type: null, message: 1});
