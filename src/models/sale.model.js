@@ -57,7 +57,6 @@ const insertSales = async () => {
 };
 
 const insertSalesProducts = async (salesProduct) => {
-  console.log('insersalesmodel', salesProduct);
   const [{ insertId }] = await connection.execute(
     'INSERT INTO StoreManager.sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
     [salesProduct.saleId, salesProduct.productId, salesProduct.quantity],
